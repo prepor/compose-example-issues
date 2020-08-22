@@ -1,31 +1,4 @@
-# ui/example-issues
+Github Issues viewer example written in Jetpack Compose UI library.
 
-
-
-## Getting Started
-
-Download links:
-
-SSH clone URL: ssh://git@git.jetbrains.team/ui/example-issues.git
-
-HTTPS clone URL: https://git.jetbrains.team/ui/example-issues.git
-
-
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-## Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-Examples
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a production system.
-
-## Resources
-
-Add links to external resources for this project, such as CI server, bug tracker, etc.
+To run desktop application execute in terminal:
+`GITHUB_TOKEN=*GITHUB-API-TOKEN* ./gradlew desktop:run`
