@@ -7,8 +7,9 @@ buildscript {
 
     dependencies {
         classpath("org.jetbrains.compose:compose-gradle-plugin:0.1.0-demo3")
+        classpath("com.android.tools.build:gradle:4.0.1")
         classpath(kotlin("gradle-plugin", version = "1.4.0"))
     }
 }
 
-include(":common", ":desktop")
+include(":common", ":android", ":desktop")

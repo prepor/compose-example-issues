@@ -1,4 +1,5 @@
 /desktop/build
+/android/build
 /common/build
 /.gradle
 /.idea
