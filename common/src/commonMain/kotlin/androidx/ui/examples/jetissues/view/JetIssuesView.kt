@@ -23,8 +23,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.DensityAmbient
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -57,8 +59,55 @@ fun JetIssuesView() {
 @Composable
 fun Main() {
     val currentIssue: MutableState<IssuesQuery.Node?> = remember { mutableStateOf(null) }
-    Row(Modifier.fillMaxSize()) {
+    WithConstraints {
+       if (maxWidth.value > 1000) {
+           TwoColumnsLayout(currentIssue)
+       } else {
+           SingleColumnLayout(currentIssue)
+       }
+    }
+
+}
+
+@Composable
+fun SingleColumnLayout(currentIssue: MutableState<IssuesQuery.Node?>) {
+    val issue = currentIssue.value
+    if(issue == null) {
         IssuesList(currentIssue)
+    } else {
+        Column {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "#${issue.number}",
+                                style = MaterialTheme.typography.h5
+                            )
+                        },
+                        navigationIcon = {
+                            Button(onClick = {
+                                currentIssue.value = null
+                            }) {
+                                Text(text = "Back")
+                            }
+                        }
+                    )
+                },
+                bodyContent = {
+                    CurrentIssue(currentIssue.value)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun TwoColumnsLayout(currentIssue: MutableState<IssuesQuery.Node?>) {
+    Row(Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxWidth(0.4f)) {
+            IssuesList(currentIssue)
+        }
         CurrentIssue(currentIssue.value)
     }
 }
@@ -123,7 +172,7 @@ fun IssuesList(currentIssue: MutableState<IssuesQuery.Node?>) {
     val scroll = rememberScrollState(0f)
     val issuesState = remember { mutableStateOf(IssuesState.OPEN) }
     val issuesOrder = remember { mutableStateOf(OrderDirection.DESC) }
-    Column(modifier = Modifier.fillMaxWidth(0.4f)) {
+    Column {
         Scaffold(
             topBar = {
                 TopAppBar(
