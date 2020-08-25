@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.DesktopSelectionContainer
 import androidx.compose.ui.selection.Selection
 
 @Composable
-fun SelectionContainer(children: @Composable () -> Unit) {
+actual fun SelectionContainer(children: @Composable () -> Unit) {
     val selection = remember { mutableStateOf<Selection?>(null) }
     DesktopSelectionContainer(
         selection = selection.value,
@@ -17,7 +17,7 @@ fun SelectionContainer(children: @Composable () -> Unit) {
 }
 
 @Composable
-fun WithoutSelection(children: @Composable () -> Unit) {
+actual fun WithoutSelection(children: @Composable () -> Unit) {
     androidx.compose.ui.selection.SelectionContainer(
         selection = null,
         onSelectionChange = {},
